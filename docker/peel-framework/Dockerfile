@@ -26,8 +26,6 @@ RUN mkdir -p $BUNDLE_BIN; mkdir -p $BUNDLE_SRC; cd "$BUNDLE_SRC"; \
     -DarchetypeVersion=1.1.8;
 RUN cd "$BUNDLE_AID"; mvn clean deploy; 
 
-
-
 # Waits till shut-down ()
 # REF: https://stackoverflow.com/questions/31870222/how-can-i-keep-container-running-on-kubernetes   
 CMD ["sh", "-c", "tail -f /dev/null"]
