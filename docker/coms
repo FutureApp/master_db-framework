@@ -1,0 +1,16 @@
+docker create --name mtb mt
+docker run -it mt
+
+
+
+mkdir -p
+# for all bundles
+export BUNDLE_BIN=~/bundles/bin                          # bundle binaries parent
+export BUNDLE_SRC=~/bundles/src                          # bundle sources parent
+# for the current bundle
+export BUNDLE_GID=com.acme                               # bundle groupId
+export BUNDLE_AID=peel-wordcount                         # bundle artifactId
+export BUNDLE_PKG=com.acme.benchmarks.wordcount          # bundle root package
+
+mkdir -p $BUNDLE_BIN; mkdir -p $BUNDLE_SRC
+cd "$BUNDLE_SRC"
