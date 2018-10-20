@@ -1,5 +1,7 @@
 # Dockerfile to build a container containing the peel-framework
-FROM maven:3.5-ibmjava-8-alpine
+
+#TODO DEV remove this and create own image
+FROM goyalzz/ubuntu-java-8-maven-docker-image
 MAINTAINER  Michael Czaja <futureapplications@gmail.com>
 
 
@@ -18,10 +20,9 @@ ENV BUNDLE_AID=peel-wordcount
 ENV BUNDLE_PKG=com.acme.benchmarks.wordcount   
 
 # Install pre-requested tools
-RUN apk update && \
-    apk add \ 
-    openssh \
-    openrc   
+RUN apt get update && \
+    apt install openssh-client \
+    openssh-server
 
 # Builds the experiment-enviroment
 RUN mkdir -p $BUNDLE_BIN; mkdir -p $BUNDLE_SRC; cd "$BUNDLE_SRC"; \
@@ -39,7 +40,5 @@ RUN mkdir -p "${BUNDLE_BIN}/download"; cd "${BUNDLE_BIN}/download"; \
     wget http://archive.apache.org/dist/hadoop/core/hadoop-2.7.1/hadoop-2.7.1.tar.gz
 # RUN cd "${BUNDLE_BIN}/${BUNDLE_AID}" && ./peel.sh suite:run wordcount.default
 # Waits till shut-down ()
-# REF: https://stackoverflow.com/questions/31870222/how-can-i-keep-container-running-on-kubernetes  
-
-EXPOSE 80 443 22
+# REF: https://stackoverflow.com/questions/31870222/how-can-i-keep-container-running-on-kubernetes   
 CMD ["sh", "-c", "tail -f /dev/null"]

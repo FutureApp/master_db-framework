@@ -1,16 +1,28 @@
-docker create --name mtb mt
-docker run -it mt
+cd "$BUNDLE_BIN/$BUNDLE_AID"; ./peel.sh suite:run wordcount.default
 
 
-
-mkdir -p
 # for all bundles
-export BUNDLE_BIN=~/bundles/bin                          # bundle binaries parent
-export BUNDLE_SRC=~/bundles/src                          # bundle sources parent
-# for the current bundle
-export BUNDLE_GID=com.acme                               # bundle groupId
-export BUNDLE_AID=peel-wordcount                         # bundle artifactId
-export BUNDLE_PKG=com.acme.benchmarks.wordcount          # bundle root package
+# bundle binaries parent
+export BUNDLE_BIN=/wd/bundles/bin   
+# bundle sources parent
+ENV BUNDLE_SRC=/wd/bundles/src
 
-mkdir -p $BUNDLE_BIN; mkdir -p $BUNDLE_SRC
-cd "$BUNDLE_SRC"
+# for the current bundle
+# bundle groupId
+export BUNDLE_GID=com.acme                             
+# bundle artifactId  
+export BUNDLE_AID=peel-wordcount           
+# bundle root package            
+export BUNDLE_PKG=com.acme.benchmarks.wordcount   
+
+
+# Builds the experiment-enviroment
+mkdir -p $BUNDLE_BIN; mkdir -p $BUNDLE_SRC; cd "$BUNDLE_SRC"; \
+    mvn archetype:generate -B                       \
+    -Dpackage="$BUNDLE_PKG"                         \
+    -DgroupId="$BUNDLE_GID"                         \
+    -DartifactId="$BUNDLE_AID"                      \
+    -DarchetypeGroupId=org.peelframework            \
+    -DarchetypeArtifactId=peel-flinkspark-bundle    \
+    -DarchetypeVersion=1.1.8;                       \
+    cd "$BUNDLE_AID" && mvn clean deploy && cd "${BUNDLE_BIN}/${BUNDLE_AID}" 
