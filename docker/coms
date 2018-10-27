@@ -1,5 +1,9 @@
-cd "$BUNDLE_BIN/$BUNDLE_AID"; ./peel.sh suite:run wordcount.default
+This will 
 
+TODO In contaienr
+cd "$BUNDLE_BIN/$BUNDLE_AID"; ./peel.sh suite:run wordcount.default
+## Downloads - http://archive.apache.org/dist/hadoop/core/hadoop-2.7.1/hadoop-2.7.1.tar.gz
+And moves it to /wd/bundles/bin/peel-wordcount/downloads/hadoop-2.7.1.tar.gz
 
 # for all bundles
 # bundle binaries parent
@@ -26,3 +30,24 @@ mkdir -p $BUNDLE_BIN; mkdir -p $BUNDLE_SRC; cd "$BUNDLE_SRC"; \
     -DarchetypeArtifactId=peel-flinkspark-bundle    \
     -DarchetypeVersion=1.1.8;                       \
     cd "$BUNDLE_AID" && mvn clean deploy && cd "${BUNDLE_BIN}/${BUNDLE_AID}" 
+
+
+
+
+ ### 
+ * this will add the server to null file and ecdsa check will be ignored 
+ c ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null root@293360df5770 -p 22
+ - https://askubuntu.com/questions/87449/how-to-disable-strict-host-key-checking-in-ssh
+
+ * will create ssh - login 
+ c ssh-keygen -f /root/.ssh/id_rsa -t rsa -b 4096 -N ''
+ - https://stackoverflow.com/questions/10767488/automate-ssh-keygen-t-rsa-so-it-does-not-ask-for-a-passphrase
+
+ * will attach the items of ssh.pub into .authorized_keys
+ c cat /root/.ssh/id_rsa >> /root/.ssh/authorized_keys
+ - https://www.thegeekstuff.com/2008/11/3-steps-to-perform-ssh-login-without-password-using-ssh-keygen-ssh-copy-id
+
+
+* Wukk dusavke the checkinf in future
+c echo "Host *" > ~/.ssh/config && echo " StrictHostKeyChecking no" >> ~/.ssh/config
+- https://askubuntu.com/questions/87449/how-to-disable-strict-host-key-checking-in-ssh
