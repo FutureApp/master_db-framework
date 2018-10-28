@@ -39,19 +39,20 @@ RUN mkdir -p $BUNDLE_BIN; mkdir -p $BUNDLE_SRC; cd "$BUNDLE_SRC"; \
     cd "$BUNDLE_AID" && mvn clean deploy && cd "${BUNDLE_BIN}/${BUNDLE_AID}" 
 
 #TODO DEV Will execute the simple test execution
-
+RUN echo "PermitRootLogin"
 ##
 # allows that user:root can login via ssh.
 # TODO replace the real PermiteRootLogin options !!! This is config, This goes on top
 RUN echo "PermitRootLogin yes" >> /etc/ssh/sshd_config; \
-    service ssh restart && \
     mkdir -p ~/.ssh; \
-    echo "Host *" > ~/.ssh/config && echo " StrictHostKeyChecking no" >> ~/.ssh/config
+    echo "Host *" > ~/.ssh/config && echo " StrictHostKeyChecking no" >> "~/.ssh/config"; \
+    service ssh restart
 
 ## TODO Peel-dev | This only during dev-phase
-RUN mkdir -p "${BUNDLE_BIN}/peel-wordcount/systems" \
-    cd "${BUNDLE_BIN}/peel-wordcount/systems" \
-    wget http://archive.apache.org/dist/hadoop/core/hadoop-2.7.1/hadoop-2.7.1.tar.gz;
+RUN mkdir -p "${BUNDLE_BIN}/peel-wordcount/downloads/"; \
+    cd "${BUNDLE_BIN}/peel-wordcount/downloads/"; \
+    wget http://archive.apache.org/dist/hadoop/core/hadoop-2.7.1/hadoop-2.7.1.tar.gz; \
+
 COPY "./docker_entrypoint.sh" "./"
 RUN chmod +x "./docker_entrypoint.sh"
 
@@ -60,5 +61,6 @@ RUN chmod +x "./docker_entrypoint.sh"
 
 
 # Waits till shut-down ()
-# REF: https://stackoverflow.com/questions/31870222/how-can-i-keep-container-running-on-kubernetes   
+# REF: https://stackoverflow.com/questions/31870222/how-can-i-keep-container-running-on-kubernetes  
+
 CMD ["sh", "-c", "tail -f /dev/null"]
