@@ -19,10 +19,10 @@ case ${option} in
     echo $cwd "+++2"
     hot
     ;;
-    "clean_cons") 
-      echo "Cleaning all docker-containers..."
-      docker stop $(docker ps -aq)
-      docker rm $(docker ps -aq)
+    "cl_con")
+      docker kill $(docker ps -q)
+      docker rm $(docker ps -a -q)
+      echo "  *Containers are killed and removed"
     ;;
     "me")
       echo "hello"

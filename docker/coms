@@ -1,6 +1,6 @@
-This will 
+This wills  
 
-TODO In contaienr
+TODO In container
 cd "$BUNDLE_BIN/$BUNDLE_AID"; ./peel.sh suite:run wordcount.default
 ## Downloads - http://archive.apache.org/dist/hadoop/core/hadoop-2.7.1/hadoop-2.7.1.tar.gz
 And moves it to /wd/bundles/bin/peel-wordcount/downloads/hadoop-2.7.1.tar.gz
@@ -48,6 +48,6 @@ mkdir -p $BUNDLE_BIN; mkdir -p $BUNDLE_SRC; cd "$BUNDLE_SRC"; \
  - https://www.thegeekstuff.com/2008/11/3-steps-to-perform-ssh-login-without-password-using-ssh-keygen-ssh-copy-id
 
 
-* Wukk dusavke the checkinf in future
+* Disables to check strict Host-Names
 c echo "Host *" > ~/.ssh/config && echo " StrictHostKeyChecking no" >> ~/.ssh/config
 - https://askubuntu.com/questions/87449/how-to-disable-strict-host-key-checking-in-ssh
