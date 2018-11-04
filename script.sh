@@ -5,11 +5,16 @@ cwd=$(pwd)
 #goal_build_run_jump <gjb> 
 hot() {
   echo "Running function hot()"
-  jumpLocation="docker/peel-framework-ubuntu/"
+  docker kill $(docker ps -q)
+  docker rm $(docker ps -a -q)
+  echo "  *Containers are killed and removed"
+
+  jumpLocation="$HOME/wd/master_db-framework/docker/peel-framework-ubuntu"
   cd $jumpLocation
   docker build -t mtest .
-  docker run -it mtest bash
-  cd $cwd
+  docker run --mount type=bind,source=/home/me/wd/vols,target=/wd --name mtest -d mtest
+  docker exec -it mtest bash
+  cd $cwdd
 }
 
 option="${1}" 
@@ -40,7 +45,7 @@ case ${option} in
       echo "Don't understand you ¯\_(ツ)_/¯ --- Check the usage-section:"
       echo " 
       PARAM 1:  
-        clean_cons |  Stops all running containers and removes all containers from the system.
+        cl_con |  Stops all running containers and removes all containers from the system.
         bpfu       |  Builds the dockerfile from ./docker/peel-framework-ubuntu/Dockerfile"
       
 
